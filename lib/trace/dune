@@ -1,0 +1,7 @@
+(library
+ (name trace)
+ (public_name chronicle.trace)
+ (wrapped false)
+ (libraries chronicle.kernel chronicle.snapshot base)
+ (preprocess
+  (pps ppx_jane ppx_expect)))

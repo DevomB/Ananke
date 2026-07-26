@@ -1,0 +1,10 @@
+(test
+ (name determinism)
+ (libraries
+  chronicle.runtime
+  chronicle.replay
+  chronicle_elevator
+  chronicle_ledger
+  base)
+ (preprocess
+  (pps ppx_jane)))

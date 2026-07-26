@@ -1,0 +1,26 @@
+opam-version: "2.0"
+name: "chronicle"
+version: "0.1.0"
+synopsis: "Deterministic event-systems laboratory"
+description: """
+Chronicle is a typed, deterministic event runtime with replay, snapshot diffing,
+and invariant verification for building and debugging stateful systems.
+"""
+maintainer: "Devom"
+authors: "Devom"
+license: "MIT"
+homepage: "https://github.com/user/chronicle"
+bug-reports: "https://github.com/user/chronicle/issues"
+depends: [
+  "dune" {>= "3.14"}
+  "base"
+  "core"
+  "ppx_jane"
+  "ppx_inline_test" {with-test}
+  "ppx_expect" {with-test}
+]
+build: [
+  ["dune" "subst"] {dev}
+  ["dune" "build" "-p" name "-j" jobs]
+]
+dev-repo: "git+https://github.com/user/chronicle.git"

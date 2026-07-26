@@ -1,0 +1,6 @@
+(library
+ (name chronicle_ledger)
+ (public_name chronicle_ledger)
+ (libraries chronicle.runtime chronicle.invariant base)
+ (preprocess
+  (pps ppx_jane)))

@@ -1,0 +1,7 @@
+(library
+ (name diff)
+ (public_name chronicle.diff)
+ (wrapped false)
+ (libraries base)
+ (preprocess
+  (pps ppx_jane ppx_expect)))

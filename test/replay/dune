@@ -1,0 +1,5 @@
+(test
+ (name replay)
+ (libraries chronicle.replay chronicle_elevator chronicle.runtime base)
+ (preprocess
+  (pps ppx_jane)))

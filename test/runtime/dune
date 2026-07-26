@@ -1,0 +1,5 @@
+(test
+ (name runtime)
+ (libraries chronicle.runtime chronicle_elevator base)
+ (preprocess
+  (pps ppx_jane)))

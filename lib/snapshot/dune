@@ -1,0 +1,7 @@
+(library
+ (name snapshot)
+ (public_name chronicle.snapshot)
+ (wrapped false)
+ (libraries chronicle.kernel base)
+ (preprocess
+  (pps ppx_jane)))

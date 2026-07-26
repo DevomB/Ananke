@@ -1,0 +1,21 @@
+opam-version: "2.0"
+name: "chronicle-cli"
+version: "0.1.0"
+synopsis: "CLI for Chronicle"
+description: "Command-line interface for the Chronicle event runtime."
+maintainer: "Devom"
+authors: "Devom"
+license: "MIT"
+homepage: "https://github.com/user/chronicle"
+bug-reports: "https://github.com/user/chronicle/issues"
+depends: [
+  "dune" {>= "3.14"}
+  "chronicle"
+  "core"
+  "cmdliner"
+]
+build: [
+  ["dune" "subst"] {dev}
+  ["dune" "build" "-p" name "-j" jobs]
+]
+dev-repo: "git+https://github.com/user/chronicle.git"

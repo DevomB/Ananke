@@ -1,0 +1,12 @@
+(test
+ (name integration)
+ (libraries
+  chronicle.runtime
+  chronicle.replay
+  chronicle.scenario
+  chronicle.io
+  chronicle_elevator
+  chronicle_matching_engine
+  base)
+ (preprocess
+  (pps ppx_jane)))

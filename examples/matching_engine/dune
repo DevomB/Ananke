@@ -1,0 +1,6 @@
+(library
+ (name chronicle_matching_engine)
+ (public_name chronicle_matching_engine)
+ (libraries chronicle.runtime chronicle.invariant base)
+ (preprocess
+  (pps ppx_jane)))

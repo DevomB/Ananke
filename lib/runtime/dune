@@ -1,0 +1,13 @@
+(library
+ (name runtime)
+ (public_name chronicle.runtime)
+ (wrapped false)
+ (libraries
+  chronicle.kernel
+  chronicle.invariant
+  chronicle.trace
+  chronicle.snapshot
+  chronicle.metrics
+  base)
+ (preprocess
+  (pps ppx_jane)))

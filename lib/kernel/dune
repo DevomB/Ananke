@@ -1,0 +1,7 @@
+(library
+ (name kernel)
+ (public_name chronicle.kernel)
+ (wrapped false)
+ (libraries base)
+ (preprocess
+  (pps ppx_jane ppx_inline_test)))

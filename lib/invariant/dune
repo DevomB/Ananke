@@ -1,0 +1,7 @@
+(library
+ (name invariant)
+ (public_name chronicle.invariant)
+ (wrapped false)
+ (libraries chronicle.kernel base)
+ (preprocess
+  (pps ppx_jane)))

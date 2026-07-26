@@ -1,0 +1,6 @@
+(benchmark
+ (name chronicle_bench)
+ (libraries chronicle.runtime chronicle_elevator base)
+ (modules bench)
+ (preprocess
+  (pps ppx_jane)))

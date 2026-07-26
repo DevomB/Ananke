@@ -1,0 +1,22 @@
+(library
+ (name cli)
+ (public_name chronicle.cli)
+ (wrapped false)
+ (libraries
+  chronicle.kernel
+  chronicle.runtime
+  chronicle.trace
+  chronicle.snapshot
+  chronicle.diff
+  chronicle.invariant
+  chronicle.scenario
+  chronicle.replay
+  chronicle.metrics
+  chronicle.io
+  chronicle_elevator
+  chronicle_ledger
+  chronicle_matching_engine
+  core
+  cmdliner)
+ (preprocess
+  (pps ppx_jane)))

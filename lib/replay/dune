@@ -1,0 +1,12 @@
+(library
+ (name replay)
+ (public_name chronicle.replay)
+ (wrapped false)
+ (libraries
+  chronicle.kernel
+  chronicle.trace
+  chronicle.runtime
+  chronicle.diff
+  base)
+ (preprocess
+  (pps ppx_jane)))

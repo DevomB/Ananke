@@ -1,0 +1,7 @@
+(library
+ (name scenario)
+ (public_name chronicle.scenario)
+ (wrapped false)
+ (libraries chronicle.kernel base)
+ (preprocess
+  (pps ppx_jane)))

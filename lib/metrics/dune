@@ -1,0 +1,7 @@
+(library
+ (name metrics)
+ (public_name chronicle.metrics)
+ (wrapped false)
+ (libraries base)
+ (preprocess
+  (pps ppx_jane)))
