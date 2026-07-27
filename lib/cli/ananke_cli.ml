@@ -240,10 +240,13 @@ let doctor () =
     ; "elevator domain", String.equal Elevator.name "elevator"
     ; "ledger domain", String.equal Ledger.name "ledger"
     ; "matching_engine domain", String.equal Matching_engine.name "matching_engine"
+    ]
   in
   List.iter checks ~f:(fun (name, ok) ->
       printf "[%s] %s\n" (if ok then "ok" else "FAIL") name);
-  printf "ananke doctor: all checks passed\n"
+  if List.for_all checks ~f:snd
+  then printf "ananke doctor: all checks passed\n"
+  else failwith "ananke doctor: one or more checks failed"
 ;;
 
 let validate_event_index trace at_index =
