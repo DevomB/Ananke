@@ -1,4 +1,4 @@
-(benchmark
+(executable
  (name bench)
  (libraries ananke.runtime ananke_elevator base)
  (modules bench)
