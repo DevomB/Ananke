@@ -1,5 +1,7 @@
 (** Elevator finite-state machine domain. *)
 
+open Base
+
 type direction =
   | Up
   | Down
@@ -24,7 +26,7 @@ type event =
   | Direction_changed of direction
 [@@deriving sexp]
 
-include Domain.S
+include Ananke_runtime.Domain.S
   with type state := state
    and type command := command
    and type event := event

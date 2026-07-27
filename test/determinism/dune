@@ -1,5 +1,6 @@
 (test
  (name test_determinism)
+ (inline_tests)
  (libraries
   ananke.runtime
   ananke.replay
@@ -7,4 +8,4 @@
   ananke.ledger
   base)
  (preprocess
-  (pps ppx_jane)))
+  (pps ppx_jane ppx_inline_test)))

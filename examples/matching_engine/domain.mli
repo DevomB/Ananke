@@ -1,3 +1,5 @@
+open Base
+
 (** Simple limit order book domain (finance example). *)
 
 type side =
@@ -30,7 +32,7 @@ type event =
   | Order_cancelled of int
 [@@deriving sexp]
 
-include Domain.S
+include Ananke_runtime.Domain.S
   with type state := state
    and type command := command
    and type event := event

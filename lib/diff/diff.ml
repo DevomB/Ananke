@@ -1,4 +1,4 @@
-open Base
+open Core
 
 type t = Change.t list [@@deriving sexp, compare, equal]
 

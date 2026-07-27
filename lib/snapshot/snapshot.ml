@@ -10,7 +10,7 @@ type t =
 [@@deriving compare, equal, sexp]
 
 let digest_of_state state =
-  state |> Sexp.to_string |> Md5.Digest.string |> Md5.to_hex
+  state |> Sexp.to_string |> Base.Md5.Digest.string |> Base.Md5.to_hex
 ;;
 
 let create version at at_index state =

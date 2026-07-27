@@ -2,6 +2,6 @@
  (name scenario)
  (public_name ananke.scenario)
  (wrapped false)
- (libraries ananke.kernel base)
+ (libraries ananke.kernel base core)
  (preprocess
   (pps ppx_jane)))

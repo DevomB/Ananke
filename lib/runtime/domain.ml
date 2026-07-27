@@ -1,5 +1,7 @@
 (** Domain signature for Ananke runtimes. *)
 
+open Base
+
 module type S = sig
   type state [@@deriving sexp, compare]
 

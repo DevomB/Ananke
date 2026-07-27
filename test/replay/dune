@@ -1,5 +1,6 @@
 (test
  (name test_replay)
+ (inline_tests)
  (libraries ananke.replay ananke.elevator ananke.runtime base)
  (preprocess
-  (pps ppx_jane)))
+  (pps ppx_jane ppx_inline_test)))

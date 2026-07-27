@@ -1,4 +1,4 @@
-open Base
+open Core
 
 let read_sexp path =
   try Ok (Sexp.load_sexp path) with

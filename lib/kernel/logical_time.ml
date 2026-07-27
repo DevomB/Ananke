@@ -1,6 +1,9 @@
 open Base
 
-type t = private int64 [@@deriving compare, equal, sexp_of]
+type t = private int64 [@@deriving sexp_of]
+
+let compare (a : t) (b : t) = Int64.compare (a : int64) (b : int64)
+let equal (a : t) (b : t) = Int64.equal (a : int64) (b : int64)
 
 let zero = (0L :> t)
 let of_int64 x = (x :> t)

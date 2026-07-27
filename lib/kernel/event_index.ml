@@ -1,6 +1,9 @@
 open Base
 
-type t = private int [@@deriving compare, equal, sexp_of]
+type t = private int [@@deriving sexp_of]
+
+let compare (a : t) (b : t) = Int.compare (a : int) (b : int)
+let equal (a : t) (b : t) = Int.equal (a : int) (b : int)
 
 let zero = (0 :> t)
 let of_int n = (n :> t)

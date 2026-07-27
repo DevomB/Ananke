@@ -505,6 +505,8 @@ let init_domain name output_dir =
   let domain_mli =
     {|(** %s domain. *)
 
+open Base
+
 type state = { count : int } [@@deriving sexp, compare]
 
 type command =
@@ -514,7 +516,7 @@ type command =
 
 type event = Changed of int [@@deriving sexp]
 
-include Domain.S
+include Ananke_runtime.Domain.S
   with type state := state
    and type command := command
    and type event := event
@@ -561,12 +563,11 @@ let command_of_sexp = command_of_sexp
   let dune =
     {|(library
  (name ananke_%s)
- (public_name ananke.%s)
  (libraries ananke.runtime ananke.invariant base)
  (preprocess
   (pps ppx_jane)))
 |}
-    |> sprintf name name
+    |> sprintf name
   in
   let scenario =
     {|((name sample)

@@ -12,7 +12,7 @@ module Make (D : Domain.S) = struct
     ; violations : Violation.t list
     }
 
-  let metadata config =
+  let metadata (config : Config.t) =
     Run_metadata.create ~domain:D.name ~domain_version:D.version ~rng_seed:config.rng_seed
       ~started_at:Logical_time.zero ~command_count:0 ~event_count:0
   ;;

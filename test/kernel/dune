@@ -1,5 +1,6 @@
 (test
  (name test_kernel)
+ (inline_tests)
  (libraries ananke.kernel base)
  (preprocess
   (pps ppx_jane ppx_inline_test)))
