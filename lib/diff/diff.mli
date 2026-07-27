@@ -1,3 +1,5 @@
+open Base
+
 (** Structural diff over sexp values. *)
 
 type t = Change.t list [@@deriving sexp, compare, equal]

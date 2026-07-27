@@ -1,3 +1,5 @@
+open Base
+
 (** Scenario loaded from a sexp file. *)
 
 type t =

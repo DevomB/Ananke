@@ -101,7 +101,7 @@ let transition state = function
   | Cancel_order order_id -> (
       match Map.find state.orders order_id with
       | None ->
-          Error (Ananke_error.Invalid_command (sprintf "unknown order_id %d" order_id))
+          Error (Ananke_error.Invalid_command (Printf.sprintf "unknown order_id %d" order_id))
       | Some _ ->
           let orders = Map.remove state.orders order_id in
           Ok ({ state with orders }, [ Order_cancelled order_id ]))
@@ -118,12 +118,12 @@ let no_negative_quantities state =
           if order.qty <= 0 then
             Error
               { Violation.name = "no_negative_quantities"
-              ; message = sprintf "order %d has non-positive qty %d" id order.qty
+              ; message = Printf.sprintf "order %d has non-positive qty %d" id order.qty
               }
           else if order.price <= 0 then
             Error
               { Violation.name = "no_negative_quantities"
-              ; message = sprintf "order %d has non-positive price %d" id order.price
+              ; message = Printf.sprintf "order %d has non-positive price %d" id order.price
               }
           else Ok ())
 ;;
@@ -134,7 +134,7 @@ let no_crossed_book state =
       Error
         { Violation.name = "no_crossed_book"
         ; message =
-            sprintf "best bid %d >= best ask %d" bid.price ask.price
+            Printf.sprintf "best bid %d >= best ask %d" bid.price ask.price
         }
   | _ -> Ok ()
 ;;
@@ -148,7 +148,7 @@ let order_id_unique state =
     Error
       { Violation.name = "order_id_unique"
       ; message =
-          sprintf "next_order_id %d must exceed max existing id %d"
+          Printf.sprintf "next_order_id %d must exceed max existing id %d"
             state.next_order_id max_id
       }
 ;;

@@ -1,3 +1,5 @@
+open Base
+
 (** Domain interface — implement this to plug into Ananke. *)
 
 module type S = sig

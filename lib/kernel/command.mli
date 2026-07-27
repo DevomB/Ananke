@@ -1,3 +1,5 @@
+open Base
+
 (** A command submitted to the runtime at a logical time. *)
 
 type t =

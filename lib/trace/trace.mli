@@ -1,3 +1,5 @@
+open Base
+
 (** A complete recorded run. *)
 
 type t =

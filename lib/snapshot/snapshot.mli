@@ -1,3 +1,5 @@
+open Base
+
 (** Point-in-time capture of domain state. *)
 
 type t =

@@ -52,7 +52,7 @@ module Make (D : Domain.S) = struct
         ; expected
         ; actual
         ; message =
-            sprintf "event count mismatch: expected %d got %d"
+            Printf.sprintf "event count mismatch: expected %d got %d"
               (List.length original_events)
               (List.length replayed_events)
         })

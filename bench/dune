@@ -1,5 +1,5 @@
-(executable
- (name ananke_bench)
+(benchmark
+ (name bench)
  (libraries ananke.runtime ananke_elevator base)
  (modules bench)
  (preprocess

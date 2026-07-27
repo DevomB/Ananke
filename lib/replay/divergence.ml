@@ -9,6 +9,6 @@ type t =
 [@@deriving sexp, compare, equal]
 
 let to_string d =
-  sprintf "divergence at index %d: %s"
+  Printf.sprintf "divergence at index %d: %s"
     (Event_index.to_int d.index)
     d.message

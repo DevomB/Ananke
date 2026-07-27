@@ -49,7 +49,7 @@ let non_negative_balance state =
   else
     Error
       { Violation.name = "non_negative_balance"
-      ; message = sprintf "balance is negative: %d" state.balance
+      ; message = Printf.sprintf "balance is negative: %d" state.balance
       }
 ;;
 

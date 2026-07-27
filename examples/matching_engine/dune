@@ -1,5 +1,6 @@
 (library
  (name ananke_matching_engine)
+ (public_name ananke_matching_engine)
  (libraries ananke.runtime ananke.invariant base)
  (preprocess
   (pps ppx_jane)))

@@ -35,7 +35,7 @@ let floor_in_range floor =
   if floor < min_floor || floor > max_floor then
     Error
       (Ananke_error.Invalid_command
-         (sprintf "floor %d out of range [%d,%d]" floor min_floor max_floor))
+         (Printf.sprintf "floor %d out of range [%d,%d]" floor min_floor max_floor))
   else Ok ()
 ;;
 
@@ -130,7 +130,7 @@ let floor_valid state =
   else
     Error
       { Violation.name = "floor_valid"
-      ; message = sprintf "floor %d outside [%d,%d]" state.floor min_floor max_floor
+      ; message = Printf.sprintf "floor %d outside [%d,%d]" state.floor min_floor max_floor
       }
 ;;
 

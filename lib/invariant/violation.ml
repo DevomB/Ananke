@@ -6,4 +6,4 @@ type t =
   }
 [@@deriving sexp, compare, equal]
 
-let to_string t = sprintf "%s: %s" t.name t.message
+let to_string t = Printf.sprintf "%s: %s" t.name t.message

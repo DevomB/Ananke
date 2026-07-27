@@ -1,3 +1,5 @@
+open Base
+
 (** A single structural change between two sexp values. *)
 
 type t =

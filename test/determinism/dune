@@ -1,5 +1,5 @@
 (test
- (name determinism)
+ (name test_determinism)
  (libraries
   ananke.runtime
   ananke.replay

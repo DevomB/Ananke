@@ -1,3 +1,5 @@
+open Base
+
 (** Events recorded in the ananke trace. *)
 
 type system =

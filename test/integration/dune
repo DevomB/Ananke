@@ -1,5 +1,5 @@
 (test
- (name integration)
+ (name test_integration)
  (libraries
   ananke.runtime
   ananke.replay

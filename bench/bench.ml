@@ -12,6 +12,6 @@ let () =
   let rt = R.create Config.default in
   match R.run rt commands with
   | Ok result ->
-      printf "bench: processed %d commands, %d events\n"
+      Printf.printf "bench: processed %d commands, %d events\n"
         result.metrics.commands_processed result.metrics.events_recorded
   | Error err -> failwith (Ananke_error.to_string err)

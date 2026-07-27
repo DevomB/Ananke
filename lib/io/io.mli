@@ -1,3 +1,5 @@
+open Base
+
 (** Read and write Ananke artifacts as sexp files. *)
 
 val read_sexp : string -> (Sexp.t, Ananke_error.t) Result.t

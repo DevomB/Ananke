@@ -38,7 +38,7 @@ module Make (D : Domain.S) = struct
 
   let named_invariants =
     List.mapi D.invariants ~f:(fun i checker ->
-        let name = sprintf "invariant-%d" i in
+        let name = Printf.sprintf "invariant-%d" i in
         fun state ->
           match checker state with
           | Ok () -> Ok ()

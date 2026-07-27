@@ -1,3 +1,5 @@
+open Base
+
 (** Result of a single runtime step. *)
 
 type 'state t =
