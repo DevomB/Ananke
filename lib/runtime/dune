@@ -1,13 +1,13 @@
 (library
  (name runtime)
- (public_name chronicle.runtime)
+ (public_name ananke.runtime)
  (wrapped false)
  (libraries
-  chronicle.kernel
-  chronicle.invariant
-  chronicle.trace
-  chronicle.snapshot
-  chronicle.metrics
+  ananke.kernel
+  ananke.invariant
+  ananke.trace
+  ananke.snapshot
+  ananke.metrics
   base)
  (preprocess
   (pps ppx_jane)))

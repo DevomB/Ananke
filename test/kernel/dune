@@ -1,5 +1,5 @@
 (test
  (name kernel)
- (libraries chronicle.kernel base)
+ (libraries ananke.kernel base)
  (preprocess
   (pps ppx_jane ppx_inline_test)))

@@ -1,6 +1,6 @@
 (library
  (name metrics)
- (public_name chronicle.metrics)
+ (public_name ananke.metrics)
  (wrapped false)
  (libraries base)
  (preprocess

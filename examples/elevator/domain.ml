@@ -34,7 +34,7 @@ let initial_state = { floor = 0; direction = Idle; requests = [] }
 let floor_in_range floor =
   if floor < min_floor || floor > max_floor then
     Error
-      (Chronicle_error.Invalid_command
+      (Ananke_error.Invalid_command
          (sprintf "floor %d out of range [%d,%d]" floor min_floor max_floor))
   else Ok ()
 ;;

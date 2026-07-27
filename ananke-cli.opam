@@ -1,0 +1,21 @@
+opam-version: "2.0"
+name: "ananke-cli"
+version: "0.1.0"
+synopsis: "CLI for Ananke"
+description: "Command-line interface for the Ananke event runtime."
+maintainer: "Devom"
+authors: "Devom"
+license: "MIT"
+homepage: "https://github.com/user/ananke"
+bug-reports: "https://github.com/user/ananke/issues"
+depends: [
+  "dune" {>= "3.14"}
+  "ananke"
+  "core"
+  "cmdliner"
+]
+build: [
+  ["dune" "subst"] {dev}
+  ["dune" "build" "-p" name "-j" jobs]
+]
+dev-repo: "git+https://github.com/user/ananke.git"

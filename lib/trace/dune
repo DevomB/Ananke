@@ -1,7 +1,7 @@
 (library
  (name trace)
- (public_name chronicle.trace)
+ (public_name ananke.trace)
  (wrapped false)
- (libraries chronicle.kernel chronicle.snapshot base)
+ (libraries ananke.kernel ananke.snapshot base)
  (preprocess
   (pps ppx_jane ppx_expect)))

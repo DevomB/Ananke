@@ -1,4 +1,4 @@
-(** Invariant checking for Chronicle domains. *)
+(** Invariant checking for Ananke domains. *)
 
 module Violation = Violation
 module Check = Check

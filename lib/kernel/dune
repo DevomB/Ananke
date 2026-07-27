@@ -1,6 +1,6 @@
 (library
  (name kernel)
- (public_name chronicle.kernel)
+ (public_name ananke.kernel)
  (wrapped false)
  (libraries base)
  (preprocess

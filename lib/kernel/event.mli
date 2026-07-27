@@ -1,4 +1,4 @@
-(** Events recorded in the chronicle trace. *)
+(** Events recorded in the ananke trace. *)
 
 type system =
   | Invariant_checked

@@ -1,6 +1,6 @@
 # Architecture
 
-Chronicle models stateful systems as **domains** driven by **commands** that produce **events** under a monotonic **logical clock**. Every step is recorded in an append-only **trace** suitable for replay and diffing.
+Ananke models stateful systems as **domains** driven by **commands** that produce **events** under a monotonic **logical clock**. Every step is recorded in an append-only **trace** suitable for replay and diffing.
 
 ## Layers
 
@@ -44,7 +44,7 @@ A trace is a sexp-serializable record:
 
 ## Determinism contract
 
-Given the same domain version, initial state, command list, and `Config.t`, Chronicle must produce bit-identical traces. Replay re-executes commands extracted from the trace and compares event streams byte-for-byte (via `Event.equal`).
+Given the same domain version, initial state, command list, and `Config.t`, Ananke must produce bit-identical traces. Replay re-executes commands extracted from the trace and compares event streams byte-for-byte (via `Event.equal`).
 
 ## Non-goals (MVP)
 

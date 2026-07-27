@@ -16,19 +16,19 @@ install:
 	dune build @install
 
 doctor:
-	dune exec chronicle -- doctor
+	dune exec ananke -- doctor
 
 demo-elevator:
-	dune exec chronicle -- run --domain elevator examples/elevator/scenarios/up_down.sexp
+	dune exec ananke -- run --domain elevator examples/elevator/scenarios/up_down.sexp
 
 demo-ledger:
-	dune exec chronicle -- run --domain ledger examples/ledger/scenarios/deposit_withdraw.sexp
+	dune exec ananke -- run --domain ledger examples/ledger/scenarios/deposit_withdraw.sexp
 
 demo-matching-engine:
-	dune exec chronicle -- run --domain matching_engine examples/matching_engine/scenarios/basic.sexp
+	dune exec ananke -- run --domain matching_engine examples/matching_engine/scenarios/basic.sexp
 
 benchmark:
-	dune exec chronicle -- benchmark --iterations 1000 --domain elevator
+	dune exec ananke -- benchmark --iterations 1000 --domain elevator
 
 report-elevator:
-	dune exec chronicle -- report examples/elevator/scenarios/up_down.trace.sexp
+	dune exec ananke -- report examples/elevator/scenarios/up_down.trace.sexp

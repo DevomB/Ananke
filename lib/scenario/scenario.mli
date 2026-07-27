@@ -8,6 +8,6 @@ type t =
   }
 [@@deriving sexp, compare, equal]
 
-val load : Sexp.t -> (t, Chronicle_error.t) Result.t
-val load_file : string -> (t, Chronicle_error.t) Result.t
+val load : Sexp.t -> (t, Ananke_error.t) Result.t
+val load_file : string -> (t, Ananke_error.t) Result.t
 val command_sexps : t -> Sexp.t list

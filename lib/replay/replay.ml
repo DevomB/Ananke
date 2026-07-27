@@ -7,8 +7,8 @@ module Make (D : Domain.S) = struct
     let parse_command sexp =
       try Ok (D.command_of_sexp sexp) with
       | Sexp.Of_sexp_error (exn, _) ->
-          Error (Chronicle_error.Parse_error (Exn.to_string exn))
-      | exn -> Error (Chronicle_error.Parse_error (Exn.to_string exn))
+          Error (Ananke_error.Parse_error (Exn.to_string exn))
+      | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn))
     in
     List.fold trace.events ~init:(Ok []) ~f:(fun acc event ->
         match acc with

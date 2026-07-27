@@ -1,0 +1,6 @@
+(executable
+ (public_name ananke)
+ (name main)
+ (package ananke-cli)
+ (libraries ananke.cli)
+ (modules main))

@@ -16,7 +16,7 @@ Each function returns `Ok ()` or `Error { name; message }`.
 
 | Mode | On violation |
 |------|----------------|
-| `Stop` | Halt run with `Chronicle_error.Invariant_violation` |
+| `Stop` | Halt run with `Ananke_error.Invariant_violation` |
 | `Record` | Continue; accumulate violations in `Transition_result.violations` |
 | `Warn` | Same as `Record` (MVP; CLI may log later) |
 

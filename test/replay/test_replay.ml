@@ -1,6 +1,6 @@
 open Base
 
-module E = Chronicle_elevator.Domain
+module E = Ananke_elevator.Domain
 module R = Runtime.Make (E)
 module Rep = Replay.Make (E)
 

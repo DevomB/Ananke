@@ -1,6 +1,6 @@
 (library
  (name diff)
- (public_name chronicle.diff)
+ (public_name ananke.diff)
  (wrapped false)
  (libraries base)
  (preprocess

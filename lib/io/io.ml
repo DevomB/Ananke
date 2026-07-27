@@ -2,8 +2,8 @@ open Base
 
 let read_sexp path =
   try Ok (Sexp.load_sexp path) with
-  | Sys_error msg -> Error (Chronicle_error.Io_error msg)
-  | exn -> Error (Chronicle_error.Io_error (Exn.to_string exn))
+  | Sys_error msg -> Error (Ananke_error.Io_error msg)
+  | exn -> Error (Ananke_error.Io_error (Exn.to_string exn))
 ;;
 
 let write_sexp path sexp =
@@ -11,8 +11,8 @@ let write_sexp path sexp =
     Sexp.save_hum sexp path;
     Ok ()
   with
-  | Sys_error msg -> Error (Chronicle_error.Io_error msg)
-  | exn -> Error (Chronicle_error.Io_error (Exn.to_string exn))
+  | Sys_error msg -> Error (Ananke_error.Io_error msg)
+  | exn -> Error (Ananke_error.Io_error (Exn.to_string exn))
 ;;
 
 let read_trace path =
@@ -20,7 +20,7 @@ let read_trace path =
   | Error _ as err -> err
   | Ok sexp -> (
       try Ok (Trace.t_of_sexp sexp) with
-      | exn -> Error (Chronicle_error.Parse_error (Exn.to_string exn)))
+      | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn)))
 ;;
 
 let write_trace path trace =
@@ -31,7 +31,7 @@ let read_snapshot path =
   | Error _ as err -> err
   | Ok sexp -> (
       try Ok (Snapshot.t_of_sexp sexp) with
-      | exn -> Error (Chronicle_error.Parse_error (Exn.to_string exn)))
+      | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn)))
 ;;
 
 let write_snapshot path snapshot =

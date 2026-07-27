@@ -1,13 +1,13 @@
 # CLI
 
-The `chronicle` executable dispatches eleven subcommands.
+The `ananke` executable dispatches eleven subcommands.
 
 ## `run`
 
 Execute a scenario file against a domain.
 
 ```bash
-dune exec chronicle -- run --domain elevator SCENARIO.sexp [--seed N] [-o TRACE.sexp]
+dune exec ananke -- run --domain elevator SCENARIO.sexp [--seed N] [-o TRACE.sexp]
 ```
 
 Domains: `elevator`, `ledger`, `matching_engine`.
@@ -19,7 +19,7 @@ Writes a trace (default: `SCENARIO.trace.sexp`) and verifies replay inline.
 Re-execute commands from a trace and compare event streams.
 
 ```bash
-dune exec chronicle -- replay TRACE.sexp
+dune exec ananke -- replay TRACE.sexp
 ```
 
 ## `diff`
@@ -27,7 +27,7 @@ dune exec chronicle -- replay TRACE.sexp
 Structural diff of final states from traces or snapshots.
 
 ```bash
-dune exec chronicle -- diff LEFT.sexp RIGHT.sexp
+dune exec ananke -- diff LEFT.sexp RIGHT.sexp
 ```
 
 ## `verify`
@@ -35,7 +35,7 @@ dune exec chronicle -- diff LEFT.sexp RIGHT.sexp
 Replay + determinism check without writing output.
 
 ```bash
-dune exec chronicle -- verify TRACE.sexp
+dune exec ananke -- verify TRACE.sexp
 ```
 
 ## `trace`
@@ -43,7 +43,7 @@ dune exec chronicle -- verify TRACE.sexp
 Print numbered events.
 
 ```bash
-dune exec chronicle -- trace TRACE.sexp
+dune exec ananke -- trace TRACE.sexp
 ```
 
 ## `inspect`
@@ -51,7 +51,7 @@ dune exec chronicle -- trace TRACE.sexp
 Print trace metadata and final state summary.
 
 ```bash
-dune exec chronicle -- inspect TRACE.sexp
+dune exec ananke -- inspect TRACE.sexp
 ```
 
 ## `snapshot`
@@ -59,7 +59,7 @@ dune exec chronicle -- inspect TRACE.sexp
 Extract a snapshot at a given event index from a trace.
 
 ```bash
-dune exec chronicle -- snapshot -t TRACE.sexp --at-index 5 -o SNAP.snap
+dune exec ananke -- snapshot -t TRACE.sexp --at-index 5 -o SNAP.snap
 ```
 
 Uses a stored snapshot when present; otherwise replays commands through that index.
@@ -69,7 +69,7 @@ Uses a stored snapshot when present; otherwise replays commands through that ind
 Summarize a trace: event counts, metrics, and invariant violations.
 
 ```bash
-dune exec chronicle -- report -t TRACE.sexp [--format text|sexp]
+dune exec ananke -- report -t TRACE.sexp [--format text|sexp]
 ```
 
 Default format is human-readable text on stdout.
@@ -79,7 +79,7 @@ Default format is human-readable text on stdout.
 Run a built-in throughput benchmark.
 
 ```bash
-dune exec chronicle -- benchmark [--iterations 1000] [--domain elevator|ledger]
+dune exec ananke -- benchmark [--iterations 1000] [--domain elevator|ledger]
 ```
 
 Prints commands/sec to stdout.
@@ -89,7 +89,7 @@ Prints commands/sec to stdout.
 Scaffold a new domain directory with `domain.ml`, `domain.mli`, `dune`, and a sample scenario.
 
 ```bash
-dune exec chronicle -- init --name my_domain --output-dir examples
+dune exec ananke -- init --name my_domain --output-dir examples
 ```
 
 Creates `examples/my_domain/` with a minimal counter domain template.
@@ -99,7 +99,7 @@ Creates `examples/my_domain/` with a minimal counter domain template.
 Quick installation sanity check.
 
 ```bash
-dune exec chronicle -- doctor
+dune exec ananke -- doctor
 ```
 
 ## Scenario format

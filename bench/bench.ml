@@ -1,6 +1,6 @@
 open Base
 
-module E = Chronicle_elevator.Domain
+module E = Ananke_elevator.Domain
 module R = Runtime.Make (E)
 
 let commands =
@@ -14,4 +14,4 @@ let () =
   | Ok result ->
       printf "bench: processed %d commands, %d events\n"
         result.metrics.commands_processed result.metrics.events_recorded
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)

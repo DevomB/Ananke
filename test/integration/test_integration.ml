@@ -1,7 +1,7 @@
 open Base
 
-module E = Chronicle_elevator.Domain
-module M = Chronicle_matching_engine.Domain
+module E = Ananke_elevator.Domain
+module M = Ananke_matching_engine.Domain
 
 let scenario_path = "examples/elevator/scenarios/up_down.sexp"
 let matching_engine_scenario_path =
@@ -19,14 +19,14 @@ let run_save_replay_verify (type state command event)
   let scenario =
     match Scenario.load_file scenario_path with
     | Ok s -> s
-    | Error err -> failwith (Chronicle_error.to_string err)
+    | Error err -> failwith (Ananke_error.to_string err)
   in
   let commands = List.map scenario.commands ~f:D.command_of_sexp in
   let config = { Config.default with rng_seed = scenario.rng_seed } in
   match R.create config |> fun rt -> R.run rt commands with
   | Error _ -> false
   | Ok result -> (
-      let path = Filename.temp_file "chronicle" ".trace.sexp" in
+      let path = Filename.temp_file "ananke" ".trace.sexp" in
       Fun.protect ~finally:(fun () -> Sys.remove path) ~f:(fun () ->
           match Io.write_trace path result.trace with
           | Error _ -> false

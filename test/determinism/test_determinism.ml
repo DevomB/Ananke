@@ -19,14 +19,14 @@ let run_twice (type state command event)
 ;;
 
 let%test "elevator is deterministic" =
-  let open Chronicle_elevator.Domain in
+  let open Ananke_elevator.Domain in
   run_twice
-    (module Chronicle_elevator.Domain)
+    (module Ananke_elevator.Domain)
     [ Request_floor 4; Step; Step; Step; Step ]
 ;;
 
 let%test "ledger is deterministic" =
-  let open Chronicle_ledger.Domain in
+  let open Ananke_ledger.Domain in
   run_twice
-    (module Chronicle_ledger.Domain)
+    (module Ananke_ledger.Domain)
     [ Deposit 100; Withdraw 25; Deposit 10 ]

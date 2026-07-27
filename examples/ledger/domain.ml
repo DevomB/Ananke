@@ -25,19 +25,19 @@ let initial_state = { balance = 0; account = "primary" }
 let transition state = function
   | Deposit amount ->
       if amount <= 0 then
-        Error (Chronicle_error.Invalid_command "deposit amount must be positive")
+        Error (Ananke_error.Invalid_command "deposit amount must be positive")
       else Ok ({ state with balance = state.balance + amount }, [ Deposited amount ])
   | Withdraw amount ->
       if amount <= 0 then
-        Error (Chronicle_error.Invalid_command "withdraw amount must be positive")
+        Error (Ananke_error.Invalid_command "withdraw amount must be positive")
       else if state.balance < amount then
-        Error (Chronicle_error.Invalid_command "insufficient funds")
+        Error (Ananke_error.Invalid_command "insufficient funds")
       else Ok ({ state with balance = state.balance - amount }, [ Withdrawn amount ])
   | Transfer (dest, amount) ->
       if amount <= 0 then
-        Error (Chronicle_error.Invalid_command "transfer amount must be positive")
+        Error (Ananke_error.Invalid_command "transfer amount must be positive")
       else if state.balance < amount then
-        Error (Chronicle_error.Invalid_command "insufficient funds for transfer")
+        Error (Ananke_error.Invalid_command "insufficient funds for transfer")
       else
         Ok
           ( { state with balance = state.balance - amount }

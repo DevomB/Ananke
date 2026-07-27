@@ -2,9 +2,9 @@ open Base
 open Cmdliner
 open Core
 
-module Elevator = Chronicle_elevator.Domain
-module Ledger = Chronicle_ledger.Domain
-module Matching_engine = Chronicle_matching_engine.Domain
+module Elevator = Ananke_elevator.Domain
+module Ledger = Ananke_ledger.Domain
+module Matching_engine = Ananke_matching_engine.Domain
 
 let config ?(seed = 0) () =
   { Config.rng_seed = seed
@@ -25,7 +25,7 @@ let parse_commands (type cmd) (parse : Sexp.t -> cmd) sexps =
       | Error _ -> acc
       | Ok cmds -> (
           try Ok (parse sexp :: cmds) with
-          | exn -> Error (Chronicle_error.Parse_error (Exn.to_string exn))))
+          | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn))))
   |> function
   | Error _ as err -> err
   | Ok cmds -> Ok (List.rev cmds)
@@ -36,21 +36,21 @@ let run_elevator scenario_path scenario seed output =
   let module R = Runtime.Make (Elevator) in
   let module Rep = Replay.Make (Elevator) in
   match parse_commands Elevator.command_of_sexp (Scenario.command_sexps scenario) with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok commands -> (
       match R.create config |> fun rt -> R.run rt commands with
-      | Error err -> failwith (Chronicle_error.to_string err)
+      | Error err -> failwith (Ananke_error.to_string err)
       | Ok result ->
           let out = Option.value output ~default:(output_path scenario_path) in
           (match Io.write_trace out result.trace with
-           | Error err -> failwith (Chronicle_error.to_string err)
+           | Error err -> failwith (Ananke_error.to_string err)
            | Ok () ->
                printf "ran elevator scenario %s\n" scenario.name;
                printf "events: %d\n" (Trace.event_count result.trace);
                printf "metrics: %s\n" (Metrics.summary result.metrics);
                printf "trace written to %s\n" out;
                match Rep.replay result.trace config with
-               | Error err -> failwith (Chronicle_error.to_string err)
+               | Error err -> failwith (Ananke_error.to_string err)
                | Ok replayed -> (
                    match Rep.verify result.trace replayed with
                    | Ok () -> printf "replay verified\n"
@@ -64,21 +64,21 @@ let run_matching_engine scenario_path scenario seed output =
   match
     parse_commands Matching_engine.command_of_sexp (Scenario.command_sexps scenario)
   with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok commands -> (
       match R.create config |> fun rt -> R.run rt commands with
-      | Error err -> failwith (Chronicle_error.to_string err)
+      | Error err -> failwith (Ananke_error.to_string err)
       | Ok result ->
           let out = Option.value output ~default:(output_path scenario_path) in
           (match Io.write_trace out result.trace with
-           | Error err -> failwith (Chronicle_error.to_string err)
+           | Error err -> failwith (Ananke_error.to_string err)
            | Ok () ->
                printf "ran matching_engine scenario %s\n" scenario.name;
                printf "events: %d\n" (Trace.event_count result.trace);
                printf "metrics: %s\n" (Metrics.summary result.metrics);
                printf "trace written to %s\n" out;
                match Rep.replay result.trace config with
-               | Error err -> failwith (Chronicle_error.to_string err)
+               | Error err -> failwith (Ananke_error.to_string err)
                | Ok replayed -> (
                    match Rep.verify result.trace replayed with
                    | Ok () -> printf "replay verified\n"
@@ -90,21 +90,21 @@ let run_ledger scenario_path scenario seed output =
   let module R = Runtime.Make (Ledger) in
   let module Rep = Replay.Make (Ledger) in
   match parse_commands Ledger.command_of_sexp (Scenario.command_sexps scenario) with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok commands -> (
       match R.create config |> fun rt -> R.run rt commands with
-      | Error err -> failwith (Chronicle_error.to_string err)
+      | Error err -> failwith (Ananke_error.to_string err)
       | Ok result ->
           let out = Option.value output ~default:(output_path scenario_path) in
           (match Io.write_trace out result.trace with
-           | Error err -> failwith (Chronicle_error.to_string err)
+           | Error err -> failwith (Ananke_error.to_string err)
            | Ok () ->
                printf "ran ledger scenario %s\n" scenario.name;
                printf "events: %d\n" (Trace.event_count result.trace);
                printf "metrics: %s\n" (Metrics.summary result.metrics);
                printf "trace written to %s\n" out;
                match Rep.replay result.trace config with
-               | Error err -> failwith (Chronicle_error.to_string err)
+               | Error err -> failwith (Ananke_error.to_string err)
                | Ok replayed -> (
                    match Rep.verify result.trace replayed with
                    | Ok () -> printf "replay verified\n"
@@ -113,7 +113,7 @@ let run_ledger scenario_path scenario seed output =
 
 let run domain scenario_path seed output =
   match Scenario.load_file scenario_path with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok scenario -> (
       match String.lowercase domain with
       | "elevator" -> run_elevator scenario_path scenario seed output
@@ -125,7 +125,7 @@ let run domain scenario_path seed output =
 
 let replay trace_path =
   match Io.read_trace trace_path with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok trace -> (
       let domain = trace.metadata.domain in
       let config = config ~seed:trace.metadata.rng_seed () in
@@ -133,7 +133,7 @@ let replay trace_path =
       | "elevator" -> (
           let module Rep = Replay.Make (Elevator) in
           match Rep.replay trace config with
-          | Error err -> failwith (Chronicle_error.to_string err)
+          | Error err -> failwith (Ananke_error.to_string err)
           | Ok replayed -> (
               match Rep.verify trace replayed with
               | Ok () -> printf "replay ok for %s\n" trace_path
@@ -141,7 +141,7 @@ let replay trace_path =
       | "ledger" -> (
           let module Rep = Replay.Make (Ledger) in
           match Rep.replay trace config with
-          | Error err -> failwith (Chronicle_error.to_string err)
+          | Error err -> failwith (Ananke_error.to_string err)
           | Ok replayed -> (
               match Rep.verify trace replayed with
               | Ok () -> printf "replay ok for %s\n" trace_path
@@ -149,7 +149,7 @@ let replay trace_path =
       | "matching_engine" -> (
           let module Rep = Replay.Make (Matching_engine) in
           match Rep.replay trace config with
-          | Error err -> failwith (Chronicle_error.to_string err)
+          | Error err -> failwith (Ananke_error.to_string err)
           | Ok replayed -> (
               match Rep.verify trace replayed with
               | Ok () -> printf "replay ok for %s\n" trace_path
@@ -167,7 +167,7 @@ let diff left right =
             match trace.final_state with
             | Some state -> state
             | None -> failwith (sprintf "no final state in trace %s" path))
-        | Error err -> failwith (Chronicle_error.to_string err))
+        | Error err -> failwith (Ananke_error.to_string err))
   in
   let left_state = read_snapshot_or_trace left in
   let right_state = read_snapshot_or_trace right in
@@ -178,14 +178,14 @@ let diff left right =
 
 let verify trace_path =
   match Io.read_trace trace_path with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok trace -> (
       let config = config ~seed:trace.metadata.rng_seed () in
       match String.lowercase trace.metadata.domain with
       | "elevator" -> (
           let module Rep = Replay.Make (Elevator) in
           match Rep.replay trace config with
-          | Error err -> failwith (Chronicle_error.to_string err)
+          | Error err -> failwith (Ananke_error.to_string err)
           | Ok replayed -> (
               match Rep.verify trace replayed with
               | Ok () -> printf "determinism verified\n"
@@ -193,7 +193,7 @@ let verify trace_path =
       | "ledger" -> (
           let module Rep = Replay.Make (Ledger) in
           match Rep.replay trace config with
-          | Error err -> failwith (Chronicle_error.to_string err)
+          | Error err -> failwith (Ananke_error.to_string err)
           | Ok replayed -> (
               match Rep.verify trace replayed with
               | Ok () -> printf "determinism verified\n"
@@ -201,7 +201,7 @@ let verify trace_path =
       | "matching_engine" -> (
           let module Rep = Replay.Make (Matching_engine) in
           match Rep.replay trace config with
-          | Error err -> failwith (Chronicle_error.to_string err)
+          | Error err -> failwith (Ananke_error.to_string err)
           | Ok replayed -> (
               match Rep.verify trace replayed with
               | Ok () -> printf "determinism verified\n"
@@ -211,7 +211,7 @@ let verify trace_path =
 
 let trace_cmd trace_path =
   match Io.read_trace trace_path with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok trace ->
       List.iteri trace.events ~f:(fun i event ->
           printf "%04d %s\n" i (Sexp.to_string_hum ([%sexp_of: Event.t] event)))
@@ -219,7 +219,7 @@ let trace_cmd trace_path =
 
 let inspect trace_path =
   match Io.read_trace trace_path with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok trace ->
       let meta = trace.metadata in
       printf "domain: %s v%d\n" meta.domain meta.domain_version;
@@ -243,7 +243,7 @@ let doctor () =
   in
   List.iter checks ~f:(fun (name, ok) ->
       printf "[%s] %s\n" (if ok then "ok" else "FAIL") name);
-  printf "chronicle doctor: all checks passed\n"
+  printf "ananke doctor: all checks passed\n"
 ;;
 
 let validate_event_index trace at_index =
@@ -295,7 +295,7 @@ let snapshot_for_domain (type cmd state)
 
 let snapshot trace_path at_index out =
   match Io.read_trace trace_path with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok trace -> (
       validate_event_index trace at_index;
       let config = config ~seed:trace.metadata.rng_seed () in
@@ -312,10 +312,10 @@ let snapshot trace_path at_index out =
         | other -> failwith (sprintf "unknown domain in trace: %s" other)
       in
       match snap_result with
-      | Error err -> failwith (Chronicle_error.to_string err)
+      | Error err -> failwith (Ananke_error.to_string err)
       | Ok snap -> (
           match Io.write_snapshot out snap with
-          | Error err -> failwith (Chronicle_error.to_string err)
+          | Error err -> failwith (Ananke_error.to_string err)
           | Ok () -> printf "snapshot written to %s\n" out))
 ;;
 
@@ -416,21 +416,21 @@ let report_sexp trace metrics violations =
 
 let report trace_path format =
   match Io.read_trace trace_path with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok trace -> (
       let metrics, violations =
         match String.lowercase trace.metadata.domain with
         | "elevator" -> (
             match report_run (module Elevator) Elevator.command_of_sexp trace with
-            | Error err -> failwith (Chronicle_error.to_string err)
+            | Error err -> failwith (Ananke_error.to_string err)
             | Ok pair -> pair)
         | "ledger" -> (
             match report_run (module Ledger) Ledger.command_of_sexp trace with
-            | Error err -> failwith (Chronicle_error.to_string err)
+            | Error err -> failwith (Ananke_error.to_string err)
             | Ok pair -> pair)
         | "matching_engine" -> (
             match report_run (module Matching_engine) Matching_engine.command_of_sexp trace with
-            | Error err -> failwith (Chronicle_error.to_string err)
+            | Error err -> failwith (Ananke_error.to_string err)
             | Ok pair -> pair)
         | other -> failwith (sprintf "unknown domain in trace: %s" other)
       in
@@ -449,7 +449,7 @@ let bench_elevator iterations =
   let start = Time_ns.now () in
   let rt = R.create Config.default in
   match R.run rt commands with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok _ ->
       let elapsed = Time_ns.diff (Time_ns.now ()) start in
       let sec = Time_ns.Span.to_sec elapsed in
@@ -467,7 +467,7 @@ let bench_ledger iterations =
   let start = Time_ns.now () in
   let rt = R.create Config.default in
   match R.run rt commands with
-  | Error err -> failwith (Chronicle_error.to_string err)
+  | Error err -> failwith (Ananke_error.to_string err)
   | Ok _ ->
       let elapsed = Time_ns.diff (Time_ns.now ()) start in
       let sec = Time_ns.Span.to_sec elapsed in
@@ -488,8 +488,8 @@ let write_text path content =
     Out_channel.write_all path ~data:content;
     Ok ()
   with
-  | Sys_error msg -> Error (Chronicle_error.Io_error msg)
-  | exn -> Error (Chronicle_error.Io_error (Exn.to_string exn))
+  | Sys_error msg -> Error (Ananke_error.Io_error msg)
+  | exn -> Error (Ananke_error.Io_error (Exn.to_string exn))
 ;;
 
 let init_domain name output_dir =
@@ -540,7 +540,7 @@ let transition state = function
   | Increment -> Ok ({ count = state.count + 1 }, [ Changed (state.count + 1) ])
   | Decrement ->
       if state.count <= 0 then
-        Error (Chronicle_error.Invalid_command "count cannot go negative")
+        Error (Ananke_error.Invalid_command "count cannot go negative")
       else Ok ({ count = state.count - 1 }, [ Changed (state.count - 1) ])
 ;;
 
@@ -557,9 +557,9 @@ let command_of_sexp = command_of_sexp
   in
   let dune =
     {|(library
- (name chronicle_%s)
- (public_name chronicle_%s)
- (libraries chronicle.runtime chronicle.invariant base)
+ (name ananke_%s)
+ (public_name ananke_%s)
+ (libraries ananke.runtime ananke.invariant base)
  (preprocess
   (pps ppx_jane)))
 |}
@@ -586,7 +586,7 @@ let command_of_sexp = command_of_sexp
   in
   List.iter files ~f:(fun (path, content) ->
       match write_text path content with
-      | Error err -> failwith (Chronicle_error.to_string err)
+      | Error err -> failwith (Ananke_error.to_string err)
       | Ok () -> printf "wrote %s\n" path);
   printf "domain scaffold created at %s\n" domain_dir
 ;;
@@ -722,7 +722,7 @@ let cmd =
   let init_cmd = Cmd.v "init" ~doc:"Scaffold a new domain directory." init_term in
   let doctor_cmd = Cmd.v "doctor" ~doc:"Check installation health." doctor_term in
   Cmd.group
-    (Cmd.info "chronicle" ~version:"0.1.0"
+    (Cmd.info "ananke" ~version:"0.1.0"
        ~doc:"Deterministic event-systems laboratory.")
     [ run_cmd
     ; replay_cmd

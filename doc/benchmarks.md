@@ -5,7 +5,7 @@ A minimal benchmark lives in `bench/`.
 ## Run
 
 ```bash
-dune exec ./bench/chronicle_bench.exe
+dune exec ./bench/ananke_bench.exe
 ```
 
 ## What it measures
@@ -14,7 +14,7 @@ The bench runs 100 elevator commands (alternating `Request_floor` and `Step`) an
 
 ## Interpreting results
 
-Chronicle MVP is not optimized for throughput. The bench exists as a baseline for future work:
+Ananke MVP is not optimized for throughput. The bench exists as a baseline for future work:
 
 - trace append currently uses list concatenation
 - invariant checks run sequentially after each command

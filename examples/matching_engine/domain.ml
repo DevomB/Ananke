@@ -74,13 +74,13 @@ let rec match_loop orders events =
 
 let validate_positive_qty qty =
   if qty <= 0 then
-    Error (Chronicle_error.Invalid_command "quantity must be positive")
+    Error (Ananke_error.Invalid_command "quantity must be positive")
   else Ok ()
 ;;
 
 let validate_positive_price price =
   if price <= 0 then
-    Error (Chronicle_error.Invalid_command "price must be positive")
+    Error (Ananke_error.Invalid_command "price must be positive")
   else Ok ()
 ;;
 
@@ -101,7 +101,7 @@ let transition state = function
   | Cancel_order order_id -> (
       match Map.find state.orders order_id with
       | None ->
-          Error (Chronicle_error.Invalid_command (sprintf "unknown order_id %d" order_id))
+          Error (Ananke_error.Invalid_command (sprintf "unknown order_id %d" order_id))
       | Some _ ->
           let orders = Map.remove state.orders order_id in
           Ok ({ state with orders }, [ Order_cancelled order_id ]))

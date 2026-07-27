@@ -1,21 +1,21 @@
 (library
  (name cli)
- (public_name chronicle.cli)
+ (public_name ananke.cli)
  (wrapped false)
  (libraries
-  chronicle.kernel
-  chronicle.runtime
-  chronicle.trace
-  chronicle.snapshot
-  chronicle.diff
-  chronicle.invariant
-  chronicle.scenario
-  chronicle.replay
-  chronicle.metrics
-  chronicle.io
-  chronicle_elevator
-  chronicle_ledger
-  chronicle_matching_engine
+  ananke.kernel
+  ananke.runtime
+  ananke.trace
+  ananke.snapshot
+  ananke.diff
+  ananke.invariant
+  ananke.scenario
+  ananke.replay
+  ananke.metrics
+  ananke.io
+  ananke_elevator
+  ananke_ledger
+  ananke_matching_engine
   core
   cmdliner)
  (preprocess

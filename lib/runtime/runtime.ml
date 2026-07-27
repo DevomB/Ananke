@@ -50,7 +50,7 @@ module Make (D : Domain.S) = struct
     | Ok () -> Ok []
     | Error violations -> (
         match config.invariant_mode with
-        | Stop -> Error (Chronicle_error.Invariant_violation (Violation.to_string (List.hd_exn violations)))
+        | Stop -> Error (Ananke_error.Invariant_violation (Violation.to_string (List.hd_exn violations)))
         | Record | Warn -> Ok violations)
   ;;
 

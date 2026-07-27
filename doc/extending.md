@@ -1,4 +1,4 @@
-# Extending Chronicle
+# Extending Ananke
 
 ## 1. Define a domain module
 
@@ -22,15 +22,15 @@ Expose `command_of_sexp` for scenario loading.
 
 ```scheme
 (library
- (name chronicle_my_domain)
- (public_name chronicle_my_domain)
- (libraries chronicle.runtime base)
+ (name ananke_my_domain)
+ (public_name ananke_my_domain)
+ (libraries ananke.runtime base)
  (preprocess (pps ppx_jane)))
 ```
 
 ## 3. Wire into CLI
 
-In `lib/cli/chronicle_cli.ml`, add a branch in `run`, `replay`, and `verify` for your domain name.
+In `lib/cli/ananke_cli.ml`, add a branch in `run`, `replay`, and `verify` for your domain name.
 
 ## 4. Write scenarios
 

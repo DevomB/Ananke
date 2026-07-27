@@ -1,4 +1,4 @@
-# Chronicle setup for Windows (requires opam + OCaml 5.x)
+# Ananke setup for Windows (requires opam + OCaml 5.x)
 $ErrorActionPreference = "Stop"
 
 if (-not (Get-Command opam -ErrorAction SilentlyContinue)) {
@@ -21,6 +21,6 @@ opam exec -- dune build
 Write-Host "Running tests..."
 opam exec -- dune runtest
 
-Write-Host "Chronicle ready. Try:"
-Write-Host "  opam exec -- dune exec chronicle -- doctor"
-Write-Host "  opam exec -- dune exec chronicle -- run --domain elevator examples/elevator/scenarios/up_down.sexp"
+Write-Host "Ananke ready. Try:"
+Write-Host "  opam exec -- dune exec ananke -- doctor"
+Write-Host "  opam exec -- dune exec ananke -- run --domain elevator examples/elevator/scenarios/up_down.sexp"

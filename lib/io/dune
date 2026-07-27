@@ -1,7 +1,7 @@
 (library
  (name io)
- (public_name chronicle.io)
+ (public_name ananke.io)
  (wrapped false)
- (libraries chronicle.kernel chronicle.trace chronicle.snapshot core)
+ (libraries ananke.kernel ananke.trace ananke.snapshot core)
  (preprocess
   (pps ppx_jane)))

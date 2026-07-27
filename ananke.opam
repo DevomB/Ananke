@@ -1,16 +1,16 @@
 opam-version: "2.0"
-name: "chronicle"
+name: "ananke"
 version: "0.1.0"
 synopsis: "Deterministic event-systems laboratory"
 description: """
-Chronicle is a typed, deterministic event runtime with replay, snapshot diffing,
+Ananke is a typed, deterministic event runtime with replay, snapshot diffing,
 and invariant verification for building and debugging stateful systems.
 """
 maintainer: "Devom"
 authors: "Devom"
 license: "MIT"
-homepage: "https://github.com/user/chronicle"
-bug-reports: "https://github.com/user/chronicle/issues"
+homepage: "https://github.com/user/ananke"
+bug-reports: "https://github.com/user/ananke/issues"
 depends: [
   "dune" {>= "3.14"}
   "base"
@@ -23,4 +23,4 @@ build: [
   ["dune" "subst"] {dev}
   ["dune" "build" "-p" name "-j" jobs]
 ]
-dev-repo: "git+https://github.com/user/chronicle.git"
+dev-repo: "git+https://github.com/user/ananke.git"

@@ -1,6 +1,6 @@
 # Testing
 
-Chronicle uses `ppx_inline_test` and `ppx_expect` via dune `runtest`.
+Ananke uses `ppx_inline_test` and `ppx_expect` via dune `runtest`.
 
 ## Layout
 

@@ -1,12 +1,12 @@
 (library
  (name replay)
- (public_name chronicle.replay)
+ (public_name ananke.replay)
  (wrapped false)
  (libraries
-  chronicle.kernel
-  chronicle.trace
-  chronicle.runtime
-  chronicle.diff
+  ananke.kernel
+  ananke.trace
+  ananke.runtime
+  ananke.diff
   base)
  (preprocess
   (pps ppx_jane)))

@@ -1,7 +1,7 @@
 (library
  (name invariant)
- (public_name chronicle.invariant)
+ (public_name ananke.invariant)
  (wrapped false)
- (libraries chronicle.kernel base)
+ (libraries ananke.kernel base)
  (preprocess
   (pps ppx_jane)))

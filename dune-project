@@ -1,13 +1,13 @@
 (lang dune 3.14)
-(name chronicle)
+(name ananke)
 (generate_opam_files true)
-(source (github user/chronicle))
+(source (github user/ananke))
 (authors "Devom")
 (maintainers "Devom")
 (license MIT)
 
 (package
- (name chronicle)
+ (name ananke)
  (depends
   dune
   base
@@ -17,5 +17,5 @@
   ppx_expect))
 
 (package
- (name chronicle-cli)
- (depends chronicle core cmdliner))
+ (name ananke-cli)
+ (depends ananke core cmdliner))

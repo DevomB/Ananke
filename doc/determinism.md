@@ -1,6 +1,6 @@
 # Determinism
 
-Chronicle treats determinism as a first-class property, not an accident of single-threaded code.
+Ananke treats determinism as a first-class property, not an accident of single-threaded code.
 
 ## Logical time
 

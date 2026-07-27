@@ -1,5 +1,5 @@
 (test
  (name runtime)
- (libraries chronicle.runtime chronicle_elevator base)
+ (libraries ananke.runtime ananke_elevator base)
  (preprocess
   (pps ppx_jane)))

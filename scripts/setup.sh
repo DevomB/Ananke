@@ -10,4 +10,4 @@ opam switch create . 5.2.0 --yes --deps-only 2>/dev/null || opam switch set .
 opam install . --deps-only --with-test --yes
 dune build
 dune runtest
-echo "chronicle ready"
+echo "ananke ready"

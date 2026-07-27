@@ -1,6 +1,6 @@
-(benchmark
- (name chronicle_bench)
- (libraries chronicle.runtime chronicle_elevator base)
+(executable
+ (name ananke_bench)
+ (libraries ananke.runtime ananke_elevator base)
  (modules bench)
  (preprocess
   (pps ppx_jane)))

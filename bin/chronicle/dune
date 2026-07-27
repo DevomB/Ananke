@@ -1,6 +1,0 @@
-(executable
- (public_name chronicle)
- (name main)
- (package chronicle-cli)
- (libraries chronicle.cli)
- (modules main))

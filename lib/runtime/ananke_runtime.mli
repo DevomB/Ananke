@@ -1,4 +1,4 @@
-(** Chronicle deterministic runtime. *)
+(** Ananke deterministic runtime. *)
 
 module Config = Config
 module Domain = Domain

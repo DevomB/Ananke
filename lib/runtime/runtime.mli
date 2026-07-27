@@ -1,4 +1,4 @@
-(** Chronicle runtime built from a domain module. *)
+(** Ananke runtime built from a domain module. *)
 
 module Make (D : Domain.S) : sig
   type t
@@ -13,10 +13,10 @@ module Make (D : Domain.S) : sig
   val step
     :  t
     -> D.command
-    -> (D.state Transition_result.t, Chronicle_error.t) Result.t
+    -> (D.state Transition_result.t, Ananke_error.t) Result.t
 
   val run
     :  t
     -> D.command list
-    -> (D.state Transition_result.t, Chronicle_error.t) Result.t
+    -> (D.state Transition_result.t, Ananke_error.t) Result.t
 end

@@ -1,4 +1,4 @@
-(** Domain registry and command dispatch for the Chronicle CLI. *)
+(** Domain registry and command dispatch for the Ananke CLI. *)
 
 val cmd : Cmdliner.Cmd.t
 val run : string -> string -> int option -> string option -> unit
