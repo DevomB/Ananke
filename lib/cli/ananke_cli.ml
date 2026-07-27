@@ -561,7 +561,7 @@ let command_of_sexp = command_of_sexp
   let dune =
     {|(library
  (name ananke_%s)
- (public_name ananke_%s)
+ (public_name ananke.%s)
  (libraries ananke.runtime ananke.invariant base)
  (preprocess
   (pps ppx_jane)))

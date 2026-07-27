@@ -1,7 +1,6 @@
 (library
  (name ananke_elevator)
- (public_name ananke_elevator)
- (package ananke)
+ (public_name ananke.elevator)
  (libraries ananke.runtime ananke.invariant base)
  (preprocess
   (pps ppx_jane)))

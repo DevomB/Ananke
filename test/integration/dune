@@ -5,8 +5,8 @@
   ananke.replay
   ananke.scenario
   ananke.io
-  ananke_elevator
-  ananke_matching_engine
+  ananke.elevator
+  ananke.matching_engine
   base)
  (preprocess
   (pps ppx_jane)))

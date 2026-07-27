@@ -13,9 +13,9 @@
   ananke.replay
   ananke.metrics
   ananke.io
-  ananke_elevator
-  ananke_ledger
-  ananke_matching_engine
+  ananke.elevator
+  ananke.ledger
+  ananke.matching_engine
   core
   cmdliner)
  (preprocess

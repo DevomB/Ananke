@@ -3,8 +3,8 @@
  (libraries
   ananke.runtime
   ananke.replay
-  ananke_elevator
-  ananke_ledger
+  ananke.elevator
+  ananke.ledger
   base)
  (preprocess
   (pps ppx_jane)))

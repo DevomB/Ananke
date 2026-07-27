@@ -23,7 +23,7 @@ Expose `command_of_sexp` for scenario loading.
 ```scheme
 (library
  (name ananke_my_domain)
- (public_name ananke_my_domain)
+ (public_name ananke.my_domain)
  (libraries ananke.runtime base)
  (preprocess (pps ppx_jane)))
 ```

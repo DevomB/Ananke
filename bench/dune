@@ -1,6 +1,6 @@
 (executable
  (name bench)
- (libraries ananke.runtime ananke_elevator base)
+ (libraries ananke.runtime ananke.elevator base)
  (modules bench)
  (preprocess
   (pps ppx_jane)))
