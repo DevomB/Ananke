@@ -103,7 +103,7 @@ Ananke is organized as small libraries:
 | `ananke.scenario` | Scenario loader |
 | `ananke.replay` | Replay and determinism verification |
 | `ananke.metrics` | Counters and timing |
-| `ananke.io` | Sexp file I/O (Core) |
+| `ananke.io` | S-expression file I/O |
 | `ananke.cli` | Cmdliner CLI |
 
 See [doc/architecture.md](doc/architecture.md) for the full design.

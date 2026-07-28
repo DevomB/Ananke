@@ -1,4 +1,4 @@
-open Core
+open Base
 
 type t =
   { metadata : Run_metadata.t
@@ -14,7 +14,7 @@ let empty metadata =
 ;;
 
 let add_event event t =
-  let events = if t.sealed then [ event ] else event :: t.events in
+  let events = event :: (if t.sealed then List.rev t.events else t.events) in
   { t with
     events
   ; sealed = false
@@ -23,20 +23,15 @@ let add_event event t =
 ;;
 
 let add_snapshot snapshot t =
-  let snapshots =
-    if t.sealed then [ snapshot ] else snapshot :: t.snapshots
-  in
+  let snapshots = snapshot :: (if t.sealed then List.rev t.snapshots else t.snapshots) in
   { t with snapshots; sealed = false }
 ;;
 
 let seal t =
-  if t.sealed then t
+  if t.sealed
+  then t
   else
-    { t with
-      events = List.rev t.events
-    ; snapshots = List.rev t.snapshots
-    ; sealed = true
-    }
+    { t with events = List.rev t.events; snapshots = List.rev t.snapshots; sealed = true }
 ;;
 
 let set_final_state state t = { t with final_state = Some state }
@@ -45,18 +40,26 @@ let event_count t = t.metadata.event_count
 
 let%expect_test "trace serializes compactly" =
   let metadata =
-    Run_metadata.create ~domain:"elevator" ~domain_version:1 ~rng_seed:42
-      ~started_at:Logical_time.zero ~command_count:1 ~event_count:2
+    Run_metadata.create
+      ~domain:"elevator"
+      ~domain_version:1
+      ~rng_seed:42
+      ~started_at:Logical_time.zero
+      ~command_count:1
+      ~event_count:2
   in
   let trace =
     empty metadata
     |> add_event
          (Event.Command
-            (Command.create (Command_id.fresh 0) Logical_time.zero
+            (Command.create
+               (Command_id.fresh 0)
+               Logical_time.zero
                (Sexp.Atom "Request_floor")))
-    |> add_event (Event.Emitted (Sexp.List [ Sexp.Atom "floor_requested"; Sexp.Atom "3" ]))
+    |> add_event
+         (Event.Emitted (Sexp.List [ Sexp.Atom "floor_requested"; Sexp.Atom "3" ]))
     |> seal
   in
-  print_s [%sexp (trace : t)];
+  Stdlib.print_endline (Sexp.to_string_hum [%sexp (trace : t)]);
   [%expect {| ((metadata (...)) (events (...)) (final_state ()) (snapshots ())) |}]
 ;;

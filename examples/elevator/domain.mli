@@ -6,7 +6,7 @@ type direction =
   | Up
   | Down
   | Idle
-[@@deriving sexp, compare]
+[@@deriving sexp, compare, equal]
 
 type state =
   { floor : int
@@ -26,7 +26,8 @@ type event =
   | Direction_changed of direction
 [@@deriving sexp]
 
-include Ananke_runtime.Domain.S
+include
+  Ananke_runtime.Domain.S
   with type state := state
    and type command := command
    and type event := event

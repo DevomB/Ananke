@@ -5,7 +5,7 @@ A minimal benchmark lives in `bench/`.
 ## Run
 
 ```bash
-dune exec ./bench/ananke_bench.exe
+dune exec ./bench/bench.exe
 ```
 
 ## What it measures

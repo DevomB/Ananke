@@ -1,14 +1,26 @@
-open Core
+open Base
 
 let read_sexp path =
-  try Ok (Sexp.load_sexp path) with
+  try Ok (Sexplib.Sexp.load_sexp path) with
   | Sys_error msg -> Error (Ananke_error.Io_error msg)
-  | exn -> Error (Ananke_error.Io_error (Exn.to_string exn))
+  | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn))
 ;;
 
 let write_sexp path sexp =
   try
-    Sexp.save_hum sexp path;
+    Sexplib.Sexp.save_hum path sexp;
+    Ok ()
+  with
+  | Sys_error msg -> Error (Ananke_error.Io_error msg)
+  | exn -> Error (Ananke_error.Io_error (Exn.to_string exn))
+;;
+
+let write_text path text =
+  try
+    let channel = Stdlib.open_out_bin path in
+    Exn.protect
+      ~f:(fun () -> Stdlib.output_string channel text)
+      ~finally:(fun () -> Stdlib.close_out channel);
     Ok ()
   with
   | Sys_error msg -> Error (Ananke_error.Io_error msg)
@@ -18,21 +30,19 @@ let write_sexp path sexp =
 let read_trace path =
   match read_sexp path with
   | Error _ as err -> err
-  | Ok sexp -> (
-      try Ok (Trace.t_of_sexp sexp) with
-      | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn)))
+  | Ok sexp ->
+    (try Ok (Trace.t_of_sexp sexp) with
+     | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn)))
 ;;
 
-let write_trace path trace =
-  write_sexp path ([%sexp_of: Trace.t] trace)
+let write_trace path trace = write_sexp path ([%sexp_of: Trace.t] trace)
 
 let read_snapshot path =
   match read_sexp path with
   | Error _ as err -> err
-  | Ok sexp -> (
-      try Ok (Snapshot.t_of_sexp sexp) with
-      | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn)))
+  | Ok sexp ->
+    (try Ok (Snapshot.t_of_sexp sexp) with
+     | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn)))
 ;;
 
-let write_snapshot path snapshot =
-  write_sexp path ([%sexp_of: Snapshot.t] snapshot)
+let write_snapshot path snapshot = write_sexp path ([%sexp_of: Snapshot.t] snapshot)

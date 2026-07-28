@@ -2,6 +2,6 @@
  (name trace)
  (public_name ananke.trace)
  (wrapped false)
- (libraries ananke.kernel ananke.snapshot base core)
+ (libraries ananke.kernel ananke.snapshot base)
  (preprocess
   (pps ppx_jane ppx_expect)))

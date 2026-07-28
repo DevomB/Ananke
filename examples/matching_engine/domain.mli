@@ -15,7 +15,7 @@ type order =
 [@@deriving sexp, compare]
 
 type state =
-  { orders : (int, order) Map.t
+  { orders : order Map.M(Int).t
   ; next_order_id : int
   }
 [@@deriving sexp, compare]
@@ -32,7 +32,8 @@ type event =
   | Order_cancelled of int
 [@@deriving sexp]
 
-include Ananke_runtime.Domain.S
+include
+  Ananke_runtime.Domain.S
   with type state := state
    and type command := command
    and type event := event

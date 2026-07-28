@@ -20,3 +20,4 @@ let default =
   ; trace_enabled = true
   ; snapshot_each_command = false
   }
+;;

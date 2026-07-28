@@ -11,11 +11,5 @@ type t =
   }
 [@@deriving compare, equal, sexp]
 
-val create
-  :  Snapshot_version.t
-  -> Logical_time.t
-  -> Event_index.t
-  -> Sexp.t
-  -> t
-
+val create : Snapshot_version.t -> Logical_time.t -> Event_index.t -> Sexp.t -> t
 val digest_of_state : Sexp.t -> string

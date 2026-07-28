@@ -16,7 +16,7 @@
   ananke.elevator
   ananke.ledger
   ananke.matching_engine
-  core
-  cmdliner)
+  cmdliner
+  unix)
  (preprocess
   (pps ppx_jane)))

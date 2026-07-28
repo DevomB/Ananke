@@ -27,5 +27,9 @@ let set_wall_time_ns ns t = { t with wall_time_ns = ns }
 let summary t =
   Printf.sprintf
     "commands=%d events=%d invariants=%d snapshots=%d wall_ns=%Ld"
-    t.commands_processed t.events_recorded t.invariant_checks t.snapshots_taken
+    t.commands_processed
+    t.events_recorded
+    t.invariant_checks
+    t.snapshots_taken
     t.wall_time_ns
+;;

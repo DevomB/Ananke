@@ -8,6 +8,6 @@ fi
 
 opam switch create . 5.2.0 --yes --deps-only 2>/dev/null || opam switch set .
 opam install . --deps-only --with-test --yes
-dune build
-dune runtest
+opam exec -- dune build @all
+opam exec -- dune runtest
 echo "ananke ready"

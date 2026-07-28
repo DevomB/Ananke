@@ -2,6 +2,6 @@
  (name snapshot)
  (public_name ananke.snapshot)
  (wrapped false)
- (libraries ananke.kernel base md5)
+ (libraries ananke.kernel base)
  (preprocess
   (pps ppx_jane)))

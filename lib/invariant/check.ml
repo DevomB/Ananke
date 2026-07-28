@@ -1,9 +1,6 @@
 open Base
 
-type when_ =
-  | After_each_command
-[@@deriving sexp, compare, equal]
-
+type when_ = After_each_command [@@deriving sexp, compare, equal]
 type 'state checker = 'state -> (unit, Violation.t) Result.t
 
 let run_all state checkers =

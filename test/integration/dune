@@ -1,6 +1,9 @@
-(test
+(library
  (name test_integration)
- (inline_tests)
+ (inline_tests
+  (deps
+   ../../examples/elevator/scenarios/up_down.sexp
+   ../../examples/matching_engine/scenarios/basic.sexp))
  (libraries
   ananke.runtime
   ananke.replay

@@ -1,4 +1,4 @@
-(test
+(library
  (name test_runtime)
  (inline_tests)
  (libraries ananke.runtime ananke.elevator base)

@@ -1,4 +1,4 @@
-(test
+(library
  (name test_kernel)
  (inline_tests)
  (libraries ananke.kernel base)

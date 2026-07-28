@@ -31,4 +31,4 @@ benchmark:
 	dune exec ananke -- benchmark --iterations 1000 --domain elevator
 
 report-elevator:
-	dune exec ananke -- report examples/elevator/scenarios/up_down.trace.sexp
+	dune exec ananke -- report --trace examples/elevator/scenarios/up_down.trace.sexp

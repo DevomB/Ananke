@@ -1,11 +1,13 @@
 open Base
 
-let run_twice (type state command event)
-    (module D : Domain.S
-      with type state = state
-       and type command = command
-       and type event = event)
-    commands =
+let run_twice
+      (type state command event)
+      (module D : Domain.S
+        with type state = state
+         and type command = command
+         and type event = event)
+      commands
+  =
   let module R = Runtime.Make (D) in
   let config = Config.default in
   let run () =
@@ -20,13 +22,10 @@ let run_twice (type state command event)
 
 let%test "elevator is deterministic" =
   let open Ananke_elevator.Domain in
-  run_twice
-    (module Ananke_elevator.Domain)
-    [ Request_floor 4; Step; Step; Step; Step ]
+  run_twice (module Ananke_elevator.Domain) [ Request_floor 4; Step; Step; Step; Step ]
 ;;
 
 let%test "ledger is deterministic" =
   let open Ananke_ledger.Domain in
-  run_twice
-    (module Ananke_ledger.Domain)
-    [ Deposit 100; Withdraw 25; Deposit 10 ]
+  run_twice (module Ananke_ledger.Domain) [ Deposit 100; Withdraw 25; Deposit 10 ]
+;;

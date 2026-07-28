@@ -9,3 +9,4 @@ let fresh n = Printf.sprintf "cmd-%d" n
 let%test "command ids round-trip" =
   let id = fresh 7 in
   equal (of_string (to_string id)) id
+;;

@@ -4,7 +4,6 @@ open Base
 
 module type S = sig
   type state [@@deriving sexp, compare]
-
   type command [@@deriving sexp]
 
   val command_of_sexp : Sexp.t -> command
@@ -14,11 +13,6 @@ module type S = sig
   val name : string
   val version : int
   val initial_state : state
-
-  val transition
-    :  state
-    -> command
-    -> (state * event list, Ananke_error.t) Result.t
-
+  val transition : state -> command -> (state * event list, Ananke_error.t) Result.t
   val invariants : (state -> (unit, Violation.t) Result.t) list
 end

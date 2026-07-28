@@ -24,28 +24,29 @@ let initial_state = { balance = 0; account = "primary" }
 
 let transition state = function
   | Deposit amount ->
-      if amount <= 0 then
-        Error (Ananke_error.Invalid_command "deposit amount must be positive")
-      else Ok ({ state with balance = state.balance + amount }, [ Deposited amount ])
+    if amount <= 0
+    then Error (Ananke_error.Invalid_command "deposit amount must be positive")
+    else Ok ({ state with balance = state.balance + amount }, [ Deposited amount ])
   | Withdraw amount ->
-      if amount <= 0 then
-        Error (Ananke_error.Invalid_command "withdraw amount must be positive")
-      else if state.balance < amount then
-        Error (Ananke_error.Invalid_command "insufficient funds")
-      else Ok ({ state with balance = state.balance - amount }, [ Withdrawn amount ])
+    if amount <= 0
+    then Error (Ananke_error.Invalid_command "withdraw amount must be positive")
+    else if state.balance < amount
+    then Error (Ananke_error.Invalid_command "insufficient funds")
+    else Ok ({ state with balance = state.balance - amount }, [ Withdrawn amount ])
   | Transfer (dest, amount) ->
-      if amount <= 0 then
-        Error (Ananke_error.Invalid_command "transfer amount must be positive")
-      else if state.balance < amount then
-        Error (Ananke_error.Invalid_command "insufficient funds for transfer")
-      else
-        Ok
-          ( { state with balance = state.balance - amount }
-          , [ Transferred_out (dest, amount) ] )
+    if amount <= 0
+    then Error (Ananke_error.Invalid_command "transfer amount must be positive")
+    else if state.balance < amount
+    then Error (Ananke_error.Invalid_command "insufficient funds for transfer")
+    else
+      Ok
+        ( { state with balance = state.balance - amount }
+        , [ Transferred_out (dest, amount) ] )
 ;;
 
 let non_negative_balance state =
-  if state.balance >= 0 then Ok ()
+  if state.balance >= 0
+  then Ok ()
   else
     Error
       { Violation.name = "non_negative_balance"

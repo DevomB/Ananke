@@ -1,4 +1,4 @@
-(test
+(library
  (name test_replay)
  (inline_tests)
  (libraries ananke.replay ananke.elevator ananke.runtime base)

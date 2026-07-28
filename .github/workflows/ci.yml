@@ -5,11 +5,19 @@ on:
     branches: [main, master]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: ocaml/setup-ocaml@v3
         with:
@@ -17,10 +25,18 @@ jobs:
           dune-cache: true
 
       - name: Install dependencies
-        run: opam install . --deps-only --with-test
+        run: |
+          opam install . --deps-only --with-test
+          opam install ocamlformat.0.29.0
+
+      - name: Lint packages
+        run: opam lint ananke.opam ananke-cli.opam
+
+      - name: Check formatting
+        run: opam exec -- dune build @fmt
 
       - name: Build
-        run: opam exec -- dune build
+        run: opam exec -- dune build @all
 
       - name: Test
         run: opam exec -- dune runtest

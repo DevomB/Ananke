@@ -2,6 +2,6 @@
  (name io)
  (public_name ananke.io)
  (wrapped false)
- (libraries ananke.kernel ananke.trace ananke.snapshot core)
+ (libraries ananke.kernel ananke.trace ananke.snapshot base sexplib)
  (preprocess
   (pps ppx_jane)))

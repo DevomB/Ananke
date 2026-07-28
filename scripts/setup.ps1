@@ -16,7 +16,7 @@ Write-Host "Installing opam dependencies..."
 opam install . --deps-only --with-test --yes
 
 Write-Host "Building..."
-opam exec -- dune build
+opam exec -- dune build @all
 
 Write-Host "Running tests..."
 opam exec -- dune runtest

@@ -1,6 +1,6 @@
 (** Domain registry and command dispatch for the Ananke CLI. *)
 
-val cmd : Cmdliner.Cmd.t
+val cmd : unit Cmdliner.Cmd.t
 val run : string -> string -> int option -> string option -> unit
 val replay : string -> unit
 val diff : string -> string -> unit
