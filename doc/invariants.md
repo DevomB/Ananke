@@ -1,14 +1,14 @@
 # Invariants
 
-Invariants are domain-owned predicates evaluated by the runtime after each successful command.
+Invariants are domain-owned named predicates evaluated by the runtime after each successful command.
 
 ## Domain definition
 
 ```ocaml
-val invariants : (state -> (unit, Violation.t) Result.t) list
+val invariants : (string * (state -> (unit, Violation.t) Result.t)) list
 ```
 
-Each function returns `Ok ()` or `Error { name; message }`.
+Each entry is `(name, checker)`. The checker returns `Ok ()` or `Error { name; message }`.
 
 ## Runtime modes
 
@@ -31,8 +31,19 @@ Each function returns `Ok ()` or `Error { name; message }`.
 
 ## Trace visibility
 
-Every check emits `Event.System Invariant_checked` so you can see invariant evaluation points in the trace timeline.
+Every check emits `Event.System (Invariant_checked outcomes)` so the sealed trace carries
+inspectable pass/fail evidence — not only a check marker.
+
+Each outcome is either:
+
+- `Passed { name }` — checker held (name from the domain registry entry)
+- `Violated { name; message }` — checker failed (prefers `Violation.name` when set; also
+  accumulated in `Transition_result.violations` under `Record`/`Warn`)
+
+`Trace.invariant_outcomes` / `Trace.invariant_violations` (and the same helpers on `Event`)
+read that evidence without re-running the domain. CLI `inspect` and `report` surface it.
 
 ## Check module
 
-`Check.run_all` executes all registered checkers and collects violations. The runtime assigns names `invariant-0`, `invariant-1`, … when domains do not set explicit names.
+`Check.evaluate_named` runs `(name, checker)` pairs into outcomes. `Check.run_all` still
+collects violations only.

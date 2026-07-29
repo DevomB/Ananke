@@ -73,6 +73,7 @@ dune exec ananke -- trace examples/elevator/scenarios/up_down.trace.sexp
 dune exec ananke -- verify examples/elevator/scenarios/up_down.trace.sexp
 dune exec ananke -- report -t examples/elevator/scenarios/up_down.trace.sexp
 dune exec ananke -- snapshot -t examples/elevator/scenarios/up_down.trace.sexp --at-index 5 -o /tmp/snap.snap
+dune exec ananke -- checkpoint -t examples/elevator/scenarios/up_down.trace.sexp --at-index 5
 ```
 
 Benchmark and scaffold:
@@ -102,6 +103,7 @@ Ananke is organized as small libraries:
 | `ananke.invariant` | Invariant checking |
 | `ananke.scenario` | Scenario loader |
 | `ananke.replay` | Replay and determinism verification |
+| `ananke.domain_test` | Base_quickcheck harness for generated commands |
 | `ananke.metrics` | Counters and timing |
 | `ananke.io` | S-expression file I/O |
 | `ananke.cli` | Cmdliner CLI |

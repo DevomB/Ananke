@@ -2,6 +2,13 @@
  (name replay)
  (public_name ananke.replay)
  (wrapped false)
- (libraries ananke.kernel ananke.trace ananke.runtime ananke.diff base)
+ (inline_tests)
+ (libraries
+  ananke.kernel
+  ananke.trace
+  ananke.snapshot
+  ananke.runtime
+  ananke.diff
+  base)
  (preprocess
-  (pps ppx_jane)))
+  (pps ppx_jane ppx_expect ppx_inline_test)))

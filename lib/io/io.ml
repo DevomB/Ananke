@@ -30,12 +30,10 @@ let write_text path text =
 let read_trace path =
   match read_sexp path with
   | Error _ as err -> err
-  | Ok sexp ->
-    (try Ok (Trace.t_of_sexp sexp) with
-     | exn -> Error (Ananke_error.Parse_error (Exn.to_string exn)))
+  | Ok sexp -> Trace_envelope.of_wire_sexp sexp
 ;;
 
-let write_trace path trace = write_sexp path ([%sexp_of: Trace.t] trace)
+let write_trace path trace = write_sexp path (Trace_envelope.to_wire_sexp trace)
 
 let read_snapshot path =
   match read_sexp path with

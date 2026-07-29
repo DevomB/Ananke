@@ -57,7 +57,7 @@ let choose_direction floor requests =
   | false, false -> Idle
 ;;
 
-let transition state = function
+let transition state rng = function
   | Request_floor floor ->
     (match floor_in_range floor with
      | Error _ as err -> err
@@ -75,10 +75,10 @@ let transition state = function
          then [ Direction_changed direction ]
          else []
        in
-       Ok ({ state with requests; direction }, events))
+       Ok ({ state with requests; direction }, events, rng))
   | Step ->
     (match state.direction with
-     | Idle -> Ok (state, [])
+     | Idle -> Ok (state, [], rng)
      | Up ->
        let floor = min (state.floor + 1) max_floor in
        let requests = List.filter state.requests ~f:(fun f -> f <> floor) in
@@ -92,7 +92,7 @@ let transition state = function
          then [ Direction_changed direction ]
          else []
        in
-       Ok ({ floor; direction; requests }, events)
+       Ok ({ floor; direction; requests }, events, rng)
      | Down ->
        let floor = max (state.floor - 1) min_floor in
        let requests = List.filter state.requests ~f:(fun f -> f <> floor) in
@@ -106,7 +106,7 @@ let transition state = function
          then [ Direction_changed direction ]
          else []
        in
-       Ok ({ floor; direction; requests }, events))
+       Ok ({ floor; direction; requests }, events, rng))
 ;;
 
 let no_empty_travel state =
@@ -141,5 +141,6 @@ let floor_valid state =
       }
 ;;
 
-let invariants = [ no_empty_travel; floor_valid ]
+let invariants = [ "no_empty_travel", no_empty_travel; "floor_valid", floor_valid ]
 let command_of_sexp = command_of_sexp
+let state_of_sexp = state_of_sexp

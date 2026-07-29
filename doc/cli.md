@@ -1,6 +1,6 @@
 # CLI
 
-The `ananke` executable dispatches eleven subcommands.
+The `ananke` executable dispatches fourteen subcommands.
 
 ## `run`
 
@@ -63,6 +63,33 @@ dune exec ananke -- snapshot -t TRACE.sexp --at-index 5 -o SNAP.snap
 ```
 
 Uses a stored snapshot when present; otherwise replays commands through that index.
+
+## `checkpoint`
+
+Restore a snapshot at an event index and verify the post-checkpoint command suffix matches the original trace.
+
+```bash
+dune exec ananke -- checkpoint -t TRACE.sexp --at-index 5
+```
+
+## `branch`
+
+Fork from a shared prefix scenario, apply baseline vs alternate suffixes, and print the structural state diff.
+
+```bash
+dune exec ananke -- branch --domain elevator \
+  --prefix prefix.sexp --baseline base.sexp --alternate alt.sexp
+```
+
+Each path is a scenario file (same format as `run`).
+
+## `minimize`
+
+Shrink a failing scenario to a minimal reproducing command sequence.
+
+```bash
+dune exec ananke -- minimize --domain elevator SCENARIO.sexp
+```
 
 ## `report`
 

@@ -6,3 +6,4 @@ module Command_id = Command_id
 module Command = Command
 module Event = Event
 module Ananke_error = Ananke_error
+module Rng = Rng

@@ -12,11 +12,13 @@ type event = ... [@@deriving sexp]
 let name = "my_domain"
 let version = 1
 let initial_state = ...
-let transition state command = ...
-let invariants = [ my_invariant ]
+let transition state rng command = ...  (* thread rng; draw only via Rng *)
+let invariants = [ "my_invariant", my_invariant ]
 ```
 
-Expose `command_of_sexp` for scenario loading.
+Expose `command_of_sexp` for scenario loading and `state_of_sexp` for snapshot restore.
+
+If the domain needs randomness, draw from the passed `Rng.t` and return the advanced value. Never call `Stdlib.Random` / `Base.Random`.
 
 ## 2. Add a dune library
 
@@ -28,9 +30,20 @@ Expose `command_of_sexp` for scenario loading.
  (preprocess (pps ppx_jane)))
 ```
 
-## 3. Wire into CLI
+## 3. Register with the CLI
 
-In `lib/cli/ananke_cli.ml`, add a branch in `run`, `replay`, and `verify` for your domain name.
+Add a packed entry to `Domain_registry.all` in `lib/cli/domain_registry.ml`:
+
+```ocaml
+let all : packed list =
+  [ (module Elevator : Ananke_runtime.Domain.S)
+  ; (module Ledger : Ananke_runtime.Domain.S)
+  ; (module Matching_engine : Ananke_runtime.Domain.S)
+  ; (module My_domain : Ananke_runtime.Domain.S)  (* new *)
+  ]
+```
+
+CLI subcommands (`run`, `replay`, `verify`, `snapshot`, `checkpoint`, `branch`, `minimize`, `report`, `doctor`) look up domains through this static registry — no new `match` branches.
 
 ## 4. Write scenarios
 
@@ -46,7 +59,8 @@ Add tests under `test/` using `Runtime.Make` and `Replay.Make`.
 
 ## Tips
 
-- Keep `transition` pure — no `printf`, no `Clock.now`, no mutable globals
+- Keep `transition` pure — no `printf`, no `Clock.now`, no mutable globals, no ambient RNG
 - Emit fine-grained events; they are your debugging timeline
 - Use invariants to encode impossible states, not just nice-to-haves
 - Bump `version` when changing state shape so old traces are identifiable
+- Property-test with `ananke.domain_test` (`Harness.Make`) plus a command generator — see `test/domain_test/`

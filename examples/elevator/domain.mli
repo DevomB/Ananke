@@ -35,3 +35,4 @@ include
 val min_floor : int
 val max_floor : int
 val command_of_sexp : Sexp.t -> command
+val state_of_sexp : Sexp.t -> state

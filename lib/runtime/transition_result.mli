@@ -8,4 +8,5 @@ type 'state t =
   ; trace : Trace.t
   ; metrics : Metrics.t
   ; violations : Violation.t list
+  ; rng : Rng.t
   }

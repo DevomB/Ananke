@@ -17,3 +17,6 @@ _build/
 .merlin
 *.coverage
 /_build
+/_build*/
+/.tectonix/session-baseline.json
+/branch_*.txt

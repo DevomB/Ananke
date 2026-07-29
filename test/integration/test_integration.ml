@@ -1,3 +1,4 @@
+module Domain_ = Domain
 open Base
 module E = Ananke_elevator.Domain
 module M = Ananke_matching_engine.Domain
@@ -7,7 +8,7 @@ let matching_engine_scenario_path = "../../examples/matching_engine/scenarios/ba
 
 let run_save_replay_verify
       (type state command event)
-      (module D : Domain.S
+      (module D : Domain_.S
         with type state = state
          and type command = command
          and type event = event)

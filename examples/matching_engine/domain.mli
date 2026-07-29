@@ -39,3 +39,4 @@ include
    and type event := event
 
 val command_of_sexp : Sexp.t -> command
+val state_of_sexp : Sexp.t -> state

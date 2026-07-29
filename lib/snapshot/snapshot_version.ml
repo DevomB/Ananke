@@ -2,4 +2,4 @@ open Base
 
 type t = int [@@deriving compare, equal, sexp]
 
-let current = 1
+let current = 2

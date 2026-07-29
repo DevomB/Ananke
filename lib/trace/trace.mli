@@ -18,3 +18,9 @@ val set_final_state : Sexp.t -> t -> t
 val seal : t -> t
 val timeline : t -> Timeline.t
 val event_count : t -> int
+
+(** All invariant pass/fail outcomes recorded in this trace. *)
+val invariant_outcomes : t -> Event.invariant_outcome list
+
+(** Violation outcomes only — inspectable without re-running the domain. *)
+val invariant_violations : t -> Event.invariant_outcome list

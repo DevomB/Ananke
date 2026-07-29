@@ -1,8 +1,9 @@
+module Domain_ = Domain
 open Base
 
 let run_twice
       (type state command event)
-      (module D : Domain.S
+      (module D : Domain_.S
         with type state = state
          and type command = command
          and type event = event)

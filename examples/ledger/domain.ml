@@ -22,17 +22,17 @@ let name = "ledger"
 let version = 1
 let initial_state = { balance = 0; account = "primary" }
 
-let transition state = function
+let transition state rng = function
   | Deposit amount ->
     if amount <= 0
     then Error (Ananke_error.Invalid_command "deposit amount must be positive")
-    else Ok ({ state with balance = state.balance + amount }, [ Deposited amount ])
+    else Ok ({ state with balance = state.balance + amount }, [ Deposited amount ], rng)
   | Withdraw amount ->
     if amount <= 0
     then Error (Ananke_error.Invalid_command "withdraw amount must be positive")
     else if state.balance < amount
     then Error (Ananke_error.Invalid_command "insufficient funds")
-    else Ok ({ state with balance = state.balance - amount }, [ Withdrawn amount ])
+    else Ok ({ state with balance = state.balance - amount }, [ Withdrawn amount ], rng)
   | Transfer (dest, amount) ->
     if amount <= 0
     then Error (Ananke_error.Invalid_command "transfer amount must be positive")
@@ -41,7 +41,8 @@ let transition state = function
     else
       Ok
         ( { state with balance = state.balance - amount }
-        , [ Transferred_out (dest, amount) ] )
+        , [ Transferred_out (dest, amount) ]
+        , rng )
 ;;
 
 let non_negative_balance state =
@@ -54,5 +55,6 @@ let non_negative_balance state =
       }
 ;;
 
-let invariants = [ non_negative_balance ]
+let invariants = [ "non_negative_balance", non_negative_balance ]
 let command_of_sexp = command_of_sexp
+let state_of_sexp = state_of_sexp

@@ -12,6 +12,7 @@ bug-reports: "https://github.com/DevomB/Ananke/issues"
 depends: [
   "dune" {>= "3.14"}
   "base"
+  "base_quickcheck"
   "sexplib"
   "ppx_jane"
   "ppx_inline_test"

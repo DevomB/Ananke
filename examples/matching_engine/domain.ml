@@ -88,7 +88,7 @@ let validate_positive_price price =
   else Ok ()
 ;;
 
-let transition state = function
+let transition state rng = function
   | Place_order (side, price, qty) ->
     (match validate_positive_price price with
      | Error _ as err -> err
@@ -101,7 +101,7 @@ let transition state = function
           let orders = Map.set state.orders ~key:id ~data:order in
           let orders, match_events = match_loop orders [] in
           let events = Order_placed (id, side, price, qty) :: match_events in
-          Ok ({ orders; next_order_id = id + 1 }, events)))
+          Ok ({ orders; next_order_id = id + 1 }, events, rng)))
   | Cancel_order order_id ->
     (match Map.find state.orders order_id with
      | None ->
@@ -109,10 +109,10 @@ let transition state = function
          (Ananke_error.Invalid_command (Printf.sprintf "unknown order_id %d" order_id))
      | Some _ ->
        let orders = Map.remove state.orders order_id in
-       Ok ({ state with orders }, [ Order_cancelled order_id ]))
+       Ok ({ state with orders }, [ Order_cancelled order_id ], rng))
   | Match ->
     let orders, events = match_loop state.orders [] in
-    Ok ({ state with orders }, events)
+    Ok ({ state with orders }, events, rng)
 ;;
 
 let no_negative_quantities state =
@@ -160,5 +160,12 @@ let order_id_unique state =
       }
 ;;
 
-let invariants = [ no_negative_quantities; no_crossed_book; order_id_unique ]
+let invariants =
+  [ "no_negative_quantities", no_negative_quantities
+  ; "no_crossed_book", no_crossed_book
+  ; "order_id_unique", order_id_unique
+  ]
+;;
+
 let command_of_sexp = command_of_sexp
+let state_of_sexp = state_of_sexp

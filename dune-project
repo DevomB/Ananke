@@ -15,6 +15,7 @@
  (depends
   dune
   base
+  base_quickcheck
   sexplib
   ppx_jane
   ppx_inline_test

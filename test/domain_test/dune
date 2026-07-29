@@ -1,0 +1,12 @@
+(library
+ (name test_domain_test)
+ (inline_tests)
+ (libraries
+  ananke.domain_test
+  ananke.runtime
+  ananke.elevator
+  ananke.ledger
+  base
+  base_quickcheck)
+ (preprocess
+  (pps ppx_jane ppx_inline_test)))

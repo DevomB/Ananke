@@ -37,6 +37,9 @@ let seal t =
 let set_final_state state t = { t with final_state = Some state }
 let timeline t = Timeline.of_events (if t.sealed then t.events else List.rev t.events)
 let event_count t = t.metadata.event_count
+let events_in_order t = if t.sealed then t.events else List.rev t.events
+let invariant_outcomes t = Event.invariant_outcomes (events_in_order t)
+let invariant_violations t = Event.invariant_violations (events_in_order t)
 
 let%expect_test "trace serializes compactly" =
   let metadata =
@@ -61,5 +64,14 @@ let%expect_test "trace serializes compactly" =
     |> seal
   in
   Stdlib.print_endline (Sexp.to_string_hum [%sexp (trace : t)]);
-  [%expect {| ((metadata (...)) (events (...)) (final_state ()) (snapshots ())) |}]
+  [%expect
+    {|
+    ((metadata
+      ((domain elevator) (domain_version 1) (rng_seed 42) (started_at 0)
+       (command_count 1) (event_count 4)))
+     (events
+      ((Command ((id cmd-0) (at 0) (payload Request_floor)))
+       (Emitted (floor_requested 3))))
+     (final_state ()) (snapshots ()) (sealed true))
+    |}]
 ;;
